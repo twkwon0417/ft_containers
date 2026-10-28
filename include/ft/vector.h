@@ -1,9 +1,6 @@
 #ifndef FT_VECTOR_H
 #define FT_VECTOR_H
 
-// Dummy implementation for linking only.
-// Provides minimal definitions to avoid linker errors.
-
 #include "enable_if.h"
 #include "equal.h"
 #include "is_integral.h"
@@ -94,7 +91,7 @@ public:
   ~vector() {
     if (_start != NULL) {
       pointer current = _start;
-      while (current != _finish) { // TODO: 난 for문이 더 좋은데 무슨 형이지
+      while (current != _finish) { // TODO: for문으로 바꿔도 될 듯
         _alloc.destroy(current);
         ++current;
       }
@@ -139,8 +136,7 @@ public:
 
   const_reference at(size_type pos) const {
     // TODO: const member func size()가 호출된다 한다. 어케 알아서 해주는 거지:
-    // const안에서만 해준다 -> 그리고 이 클래스 외부 클래스에서는 const 안해도
-    // 알빠노
+    // const 멤버 함수 안에서는 const 버전이 불린다
     if (pos >= this->size()) {
       throw std::out_of_range("vector::at");
     }
